@@ -91,7 +91,7 @@ index_list = np.zeros((size, 2), dtype=np.int_)
 index_list[0, 1] = len_prefix_list // size + 1
 for r in range(1, size):
     index_list[r, 0] = index_list[r - 1, 1]
-    offset = (1 if r < len_prefix_list % size else 0)
+    offset = 1 if r < len_prefix_list % size else 0
     index_list[r, 1] = index_list[r, 0] + len_prefix_list // size + offset
 
 index_lower = index_list[rank, 0]
@@ -101,7 +101,7 @@ comm.Barrier()
 
 prefix_list[index_lower:index_upper] = prefix_list[index_lower:index_upper][
         np.argsort(prefix_list[index_lower:index_upper, 1], kind="stable")
-    ]
+]
 
 comm.Barrier()
 
